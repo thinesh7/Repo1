@@ -1,0 +1,19 @@
+name: My Test WorkFlow - Repo1
+
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: my-step-1
+        run: echo "STEP-1 Executed"
+      - name: Trigger Repository 2 Workflow
+        run: |
+          curl -X POST \
+            -H "Accept: application/vnd.github.everest-preview+json" \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            --data '{"event_type": "trigger-workflow"}' \
+            https://api.github.com/repos/thinesh7/gitHubActions/dispatches
